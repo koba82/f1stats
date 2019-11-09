@@ -5,7 +5,7 @@ class Laptimes extends React.Component {
     constructor() {
         super()
         this.state= {
-            url: 'http://ergast.com/api/f1/2019/19/drivers/max_verstappen/laps/10.json',
+            fetchUrl: 'http://ergast.com/api/f1/2019/19/drivers/max_verstappen/laps/10.json',
             data: {},
             laptime: '',
             currentDriver: 'max_verstappen'
@@ -18,7 +18,7 @@ class Laptimes extends React.Component {
         this.setState(prevState => {
                 return {
                     currentDriver: name,
-                    url: 'http://ergast.com/api/f1/2019/19/drivers/' + name + '/laps/10.json'
+                    fetchUrl: 'http://ergast.com/api/f1/2019/19/drivers/' + name + '/laps/10.json'
                 }
             }
         )
@@ -26,7 +26,7 @@ class Laptimes extends React.Component {
     }
 
     componentDidMount() {
-        fetch(this.state.url)
+        fetch(this.state.fetchUrl)
         .then(response => response.json())
         .then(jsonData => {
             this.setState({
@@ -37,7 +37,7 @@ class Laptimes extends React.Component {
     }
 
     componentDidUpdate() {
-        fetch(this.state.url)
+        fetch(this.state.fetchUrl)
         .then(response => response.json())
         .then(jsonData => {
             this.setState({

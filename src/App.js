@@ -2,10 +2,14 @@ import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import Laptimes from './components/Laptimes'
+import DriverListBySeason from './components/DriverListBySeason'
 
 function App() {
   return (
-    <Laptimes />
+    <div>
+      <Laptimes />
+      <DriverListBySeason year="2014" />
+    </div>
   );
 }
 
