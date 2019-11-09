@@ -4,13 +4,23 @@ import './App.css';
 import Laptimes from './components/Laptimes'
 import DriverListBySeason from './components/DriverListBySeason'
 
-function App() {
-  return (
-    <div>
-      <Laptimes />
-      <DriverListBySeason year="2014" />
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      year: '2019'
+    }
+  }
+
+
+  render() {
+    return (
+      <div>
+        <Laptimes />
+        <DriverListBySeason year="2019" />
+      </div>
+    );
+  }
 }
 
 export default App;

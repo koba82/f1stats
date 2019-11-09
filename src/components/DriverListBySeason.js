@@ -24,7 +24,7 @@ class DriverListBySeason extends React.Component {
     render() {
         const driverTable = this.state.drivers.map(driver => {
             return (
-                <DriverName familyName={driver.familyName} />
+                <DriverName familyName={driver.familyName} givenName={driver.givenName} />
             )    
         })
 

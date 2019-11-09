@@ -64,14 +64,53 @@ F1YEAR
   font-style: normal; }
 
 
+:root {
+  --def-trans: all .25s cubic-bezier(0,0,0,1);
+  --def-shadow: 2px 2px 5px rgba(0,0,0,0.15), 0px 0px 15px rgba(0,0,0,0.15);
+  --dark-grey: rgb(49, 42, 42);
+  --dark-grey-hover: rgb(69,62,62);
+  --red: rgb(255,6,0)
+}
 
+html, body {
+  font-size: 14px;
+  line-height: 1.3em;
+}
 
 
 .driver-name-list {
-  font-family: 'F1Bold';
-  text-align: center;
-  font-size: 1.2rem;
-  padding: .3em .8em;
+  font-family: 'F1';
+  text-align: left;
+  width: 15em;
+  padding: 1em;
   color:white;
-  background: #e10600;
+  background: var(--dark-grey);
 }
+
+.driver-name {
+  padding: .8em 1.2em;
+  margin: .8em 0;
+  display:flex; 
+  justify-content: left;
+  transition: var(--def-trans);
+  border: 1px solid white;
+  border-left: none;
+  border-top: none;
+  border-radius: 0 0 10px 0;
+}
+
+.driver-name:hover {
+  cursor: pointer;
+  border-color: var(--red);
+}
+
+.driver-name .-first-name {
+  text-transform: capitalize;
+}
+
+.driver-name .-family-name {
+  margin-left: .3em;
+  text-transform:uppercase;
+  font-family: 'F1Bold';
+}
+
