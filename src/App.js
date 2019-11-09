@@ -1,14 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import Laptimes from './components/Laptimes'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>React, biiactch yeas</h1>
-      </header>
-    </div>
+    <Laptimes />
   );
 }
 
