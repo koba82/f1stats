@@ -78,7 +78,12 @@ html, body {
 }
 
 
-.driver-name-list {
+.sidebar {
+  display: flex;
+  justify-content: left;
+}
+
+.driver-name-list, .constructor-name-list {
   font-family: 'F1';
   text-align: left;
   width: 15em;
@@ -87,21 +92,31 @@ html, body {
   background: var(--dark-grey);
 }
 
-.driver-name {
+.driver-name, .constructor-name {
+  position: relative;
   padding: .8em 1.2em;
-  margin: .8em 0;
   display:flex; 
   justify-content: left;
   transition: var(--def-trans);
-  border: 1px solid white;
-  border-left: none;
-  border-top: none;
-  border-radius: 0 0 10px 0;
+}
+
+.driver-name:before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: .3em;
+  height: 1em;
+  left: 0;
+  top: calc(50% - 0.5em);
+  background: transparent;
 }
 
 .driver-name:hover {
   cursor: pointer;
-  border-color: var(--red);
+}
+
+.driver-name:hover:before {
+  background: white;
 }
 
 .driver-name .-first-name {
