@@ -1,41 +1,43 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import DriverName from './DriverName';
 
-class DriverListBySeason extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state= {
-            year: props.year,
-            fetchUrl: 'http://ergast.com/api/f1/' + props.year + '/drivers.json',
-            drivers: []
-        }
-    }
+function DriverListBySeason(props) {
 
-    componentDidMount() {
-        fetch(this.state.fetchUrl)
+    const [ year, setYear ] = useState(props)
+    const [ drivers, setDrivers ] = useState([])
+    const [ driverTable, setDriverTable ] = useState([])
+
+    useEffect(() => {
+        const url = 'http://ergast.com/api/f1/' + props.year + '/drivers.json'
+        fetch(url)
         .then(response => response.json())
         .then(jsonData => {
-            this.setState({
-                drivers: jsonData.MRData.DriverTable.Drivers
-            })
-        })
-    }
+            setDrivers(jsonData.MRData.DriverTable.Drivers)
+            }
+        )
+    }, [props])
 
-    render() {
-        const driverTable = this.state.drivers.map(driver => {
+    useEffect(() => {
+        const newDriverTable = drivers.map(driver => {
             return (
-                <DriverName familyName={driver.familyName} givenName={driver.givenName} />
+                <DriverName key={driver.id} permanentNumber={driver.permanentNumber} familyName={driver.familyName} givenName={driver.givenName} />
             )    
         })
+        setDriverTable(newDriverTable)
+    }, [drivers])
 
-        return(
+    
+    // const driverTable = drivers.map(driver => {
+    //     return (
+    //         <DriverName key={driver.id} familyName={driver.familyName} givenName={driver.givenName} />
+    //     )    
+    // })
+
+    return(
             <div className="driver-name-list">
                 {driverTable}
             </div>
         )
-    }
-
-
 }
 
 export default DriverListBySeason

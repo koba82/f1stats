@@ -1,38 +1,36 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import ConstructorName from './ConstructorName';
 
-class ConstructorListBySeason extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state= {
-            year: props.year,
-            fetchUrl: 'http://ergast.com/api/f1/' + props.year + '/constructors.json',
-            constructors: []
-        }
-    }
+function ConstructorListBySeason(props) {
 
-    componentDidMount() {
-        fetch(this.state.fetchUrl)
+    const [ year, setYear ] = useState(props)
+    const [ constructors, setConstructors ] = useState([])
+    const [ constructorTable, setConstructorTable ] = useState([])
+
+    useEffect(() => {
+        const url = 'http://ergast.com/api/f1/' + props.year + '/constructors.json'
+        fetch(url)
         .then(response => response.json())
         .then(jsonData => {
-            this.setState({
-                constructors: jsonData.MRData.ConstructorTable.Constructors
-            })
-        })
-    }
+            setConstructors(jsonData.MRData.ConstructorTable.Constructors)
+            }
+        )
+    }, [props])
 
-    render() {
-        const constructorTable = this.state.constructors.map(constructor => {
+    useEffect( () => {
+        const newConstructorTable = constructors.map(constructor => {
             return (
                 <ConstructorName constructorName={constructor.name} />
             )    
         })
-        return(
+        setConstructorTable(newConstructorTable)
+    }, [constructors])
+
+    return(
             <div className="constructor-name-list">
                 {constructorTable}
             </div>
-        )
-    }
+    )
 
 
 }

@@ -67,9 +67,13 @@ F1YEAR
 :root {
   --def-trans: all .25s cubic-bezier(0,0,0,1);
   --def-shadow: 2px 2px 5px rgba(0,0,0,0.15), 0px 0px 15px rgba(0,0,0,0.15);
+  --light-grey: rgb(220,220,220);
   --dark-grey: rgb(49, 42, 42);
   --dark-grey-hover: rgb(69,62,62);
-  --red: rgb(255,6,0)
+  --red: rgb(255,6,0);
+  
+  --def-trans-timing: .25s;
+  --transition: all var(--def-trans-timing) cubic-bezier(0,0,0,1);
 }
 
 html, body {
@@ -81,6 +85,43 @@ html, body {
 .sidebar {
   display: flex;
   justify-content: left;
+}
+
+input, select, label, button {
+  font-size: 1.2rem;
+  padding: .6em 1.5em;
+  color: var(--dark-grey);
+  background-color: white;
+  margin: 1em .2em;
+  font-family: 'F1Bold';
+  border-radius: 3px;
+  transition: var(--def-trans);
+}
+
+select, input, button {
+  border: 1px solid var(--light-grey);
+}
+
+.select:hover, button:hover {
+  background: var(--light-grey);
+  cursor: pointer;
+}
+
+option {
+  padding: .3em .6em;
+}
+
+.filter {
+  display:flex;
+}
+
+.filter-year {
+  background: var(--red);
+}
+
+.filter-year label {
+  background: none;
+  color: white;
 }
 
 .driver-name-list, .constructor-name-list {
@@ -98,6 +139,10 @@ html, body {
   display:flex; 
   justify-content: left;
   transition: var(--def-trans);
+}
+
+.constructor-name {
+  font-family: 'F1Bold';
 }
 
 .driver-name:before {
@@ -119,8 +164,26 @@ html, body {
   background: white;
 }
 
-.driver-name .-first-name {
+.driver-name .-given-name {
   text-transform: capitalize;
+}
+
+.driver-name .-given-name span {
+  display: inline-block;
+  width: 2em;
+  padding: .1em 0;
+  text-align: center;
+  background: rgb(255,255,255,0.1);
+  border-radius: 3px;
+  margin-right: .4em;
+}
+
+.driver-name .-given-name span.placeholder {
+  display: inline-block;
+  width: 2em;
+  padding: .1em 0;
+  margin-right: .4em;
+  background: none; 
 }
 
 .driver-name .-family-name {

@@ -1,42 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import Laptimes from './components/Laptimes'
 import DriverListBySeason from './components/DriverListBySeason'
 import ConstructorListBySeason from './components/ConstructorListBySeason'
 import SelectYear from './components/SelectYear'
+import ShowYear from './components/ShowYear'
 
-class App extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      year: '1999'
+function App() {
+  const [year, setYear] = useState(2019)
+
+  function updateYear(event) {
+    if(event.target.name == 'year') {
+      console.log("update year")
+      setYear(event.target.value)
+    } else if(event.target.name == 'increment') {
+      console.log('increment')
+      const updateYear = year + 1
+      setYear(updateYear)
+    } else if(event.target.name == 'decrement') {
+      const updateYear = year - 1
+      setYear(updateYear)
     }
-    
-    this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange(event) {
-    const {name, value, type, checked} = event.target
-    type === "checkbox" ? this.setState({ [name]: checked }) : this.setState({ [name]: value })
-  }
-
-  render() {
-    console.log(this.state)
-    return (
+  return (
       <div>
-        <Laptimes />
-        <div className="topbar">
-          <SelectYear handleChange={this.handleChange} state={this.state} />
-        </div>
+        {/* <Laptimes /> */}
+         <div className="topbar">
+          <SelectYear handleChange={updateYear} year={year} />
+        </div> 
         <div className="sidebar">
-          <DriverListBySeason year={this.state.year} />
-          <ConstructorListBySeason year={this.state.year} />
+          <DriverListBySeason year={year} />
+          <ConstructorListBySeason year={year} />
+          <ShowYear year={year} />
         </div>
       </div>
-
-    );
-  }
+    )
 }
 
 export default App;
