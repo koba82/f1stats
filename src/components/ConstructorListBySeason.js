@@ -12,19 +12,18 @@ function ConstructorListBySeason(props) {
         fetch(url)
         .then(response => response.json())
         .then(jsonData => {
-            setConstructors(jsonData.MRData.ConstructorTable.Constructors)
+            const newConstructorTable = jsonData.MRData.ConstructorTable.Constructors.map(constructor => {
+                return (
+                    <ConstructorName 
+                        constructorName={constructor.name}
+                        updateConstructor={props.updateConstructor}
+                        value={constructor.constructorId} />
+                )    
+            })
+            setConstructorTable(newConstructorTable)
             }
         )
-    }, [props])
-
-    useEffect( () => {
-        const newConstructorTable = constructors.map(constructor => {
-            return (
-                <ConstructorName constructorName={constructor.name} />
-            )    
-        })
-        setConstructorTable(newConstructorTable)
-    }, [constructors])
+    }, [props.year])
 
     return(
             <div className="constructor-name-list">

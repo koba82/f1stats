@@ -3,41 +3,44 @@ import DriverName from './DriverName';
 
 function DriverListBySeason(props) {
 
-    const [ year, setYear ] = useState(props)
-    const [ drivers, setDrivers ] = useState([])
     const [ driverTable, setDriverTable ] = useState([])
 
     useEffect(() => {
+        setDriverTable('');
         const url = 'http://ergast.com/api/f1/' + props.year + '/drivers.json'
         fetch(url)
         .then(response => response.json())
         .then(jsonData => {
-            setDrivers(jsonData.MRData.DriverTable.Drivers)
-            }
-        )
-    }, [props])
-
-    useEffect(() => {
-        const newDriverTable = drivers.map(driver => {
-            return (
-                <DriverName key={driver.id} permanentNumber={driver.permanentNumber} familyName={driver.familyName} givenName={driver.givenName} />
-            )    
+            const newDriverTable = jsonData.MRData.DriverTable.Drivers.map(driver => {
+                return (
+                    <DriverName 
+                        value={driver.driverId}
+                        updateDriver={props.updateDriver}
+                        key={driver.id} 
+                        permanentNumber={driver.permanentNumber} 
+                        familyName={driver.familyName} 
+                        givenName={driver.givenName} 
+                    />
+                )    
+            })
+            setDriverTable(newDriverTable)
         })
-        setDriverTable(newDriverTable)
-    }, [drivers])
+    }, [props.year])
 
-    
-    // const driverTable = drivers.map(driver => {
-    //     return (
-    //         <DriverName key={driver.id} familyName={driver.familyName} givenName={driver.givenName} />
-    //     )    
-    // })
 
-    return(
+    if(driverTable) {
+        return(
             <div className="driver-name-list">
                 {driverTable}
             </div>
-        )
+            )
+    } else {
+        return(
+            <div className="driver-name-list">
+                <div className="loading"></div>
+            </div>
+            )
+    }
 }
 
 export default DriverListBySeason
