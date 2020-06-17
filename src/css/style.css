@@ -108,6 +108,12 @@ body {
 	color: var(--text-dark);
 }
 
+.topbar {
+	display: flex;
+	justify-content: left;
+	background: var(--red);
+}
+
 .sidebar {
 	display: flex;
 	justify-content: left;
@@ -175,7 +181,7 @@ option {
 	background: var(--red);
 }
 
-.filter-year label {
+.topbar label {
 	background: none;
 	color: white;
 }
